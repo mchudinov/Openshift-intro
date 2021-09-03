@@ -46,9 +46,9 @@ spec:
     spec:
       containers:
         - name: quote-service
-          image: docker.io/peliseev/architectural-sketches:quote-service
+          image: marcnuri/chuck-norris
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 
 ---
 
@@ -82,7 +82,7 @@ spec:
     - name: http
       port: 3000
       protocol: TCP
-      targetPort: 3000
+      targetPort: 8080
   selector:
     app: quote-service
   sessionAffinity: None
@@ -93,11 +93,11 @@ spec:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: quote
+  name: nginx-quote
   labels:
-    app: quote-app
+    app: nginx-quote-app
 spec:
-  host: quote.apps-crc.testing
+  #host: quote.apps-crc.testing
   to:
     kind: Service
     name: nginx-service
